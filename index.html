@@ -10,117 +10,42 @@
   <link rel="stylesheet" href="styles.css">
   <script defer src="script.js"></script>
 </head>
-<body>
+<body data-page="inicio">
   <header class="header">
-    <a class="brand" href="#inicio" aria-label="Nacho Paveade, inicio">
-      <img src="assets/logo-nacho-paveade-mark.jpg" alt="" width="820" height="650">
-      <span><b>Nacho Paveade</b><small>Hormigón impreso · Pavimentos decorativos</small></span>
-    </a>
-    <button class="menu" aria-label="Abrir menú" aria-expanded="false"><i></i><i></i></button>
-    <nav aria-label="Navegación principal">
-      <a href="#servicios">Servicios</a><a href="#proyectos">Obras reales</a><a href="#metodo">Cómo trabajamos</a><a href="#nosotros">Nosotros</a><a class="nav-cta" href="#contacto">Pedir presupuesto</a>
-    </nav>
+    <a class="brand" href="index.html" aria-label="Nacho Paveade, inicio"><img src="assets/logo-nacho-paveade-mark.jpg" alt="" width="820" height="650"><span><b>Nacho Paveade</b><small>Hormigón impreso · Pavimentos decorativos</small></span></a>
+    <button class="menu" type="button" aria-label="Abrir menú" aria-expanded="false"><i></i><i></i></button>
+    <nav aria-label="Navegación principal"><a href="servicios.html">Servicios</a><a href="proyectos.html">Obras reales</a><a href="proceso.html">Cómo trabajamos</a><a href="empresa.html">Nosotros</a><a class="nav-cta" href="contacto.html">Pedir presupuesto</a></nav>
   </header>
 
   <main>
-    <section id="inicio" class="hero">
+    <section class="hero">
       <img src="assets/obras-reales/pavimento-impreso-brujula-panoramica.jpg" alt="Pavimento impreso acabado con motivo de brújula" width="1440" height="648" fetchpriority="high">
       <div class="hero-shade"></div>
-      <div class="hero-copy">
-        <p class="hero-brand">Nacho Paveade</p>
-        <h1>Hormigón impreso.<br>Acabados con carácter.</h1>
-        <p>Diseñamos y ejecutamos pavimentos decorativos, superficies pulidas y revestimientos verticales para viviendas, fincas, comercios e industria.</p>
-        <div class="actions"><a class="btn primary" href="#contacto">Solicita tu presupuesto <span>→</span></a><a class="phone" href="tel:+34669666666">☎ 669 666 666</a></div>
-      </div>
-      <a class="scroll" href="#servicios">Ver servicios <span>↓</span></a>
+      <div class="hero-copy"><p class="hero-brand">Nacho Paveade</p><h1>Hormigón impreso.<br>Acabados con carácter.</h1><p>Diseñamos y ejecutamos pavimentos decorativos, superficies pulidas y revestimientos verticales en Madrid y provincias cercanas.</p><div class="actions"><a class="btn primary" href="contacto.html">Solicita tu presupuesto <span>→</span></a><a class="phone" href="tel:+34669666666">☎ 669 666 666</a></div></div>
+      <a class="scroll" href="#especialidades">Conócenos <span>↓</span></a>
     </section>
 
-    <section id="servicios" class="section services">
-      <div class="section-head"><h2>Soluciones que ya puedes ver terminadas</h2><p>Trabajamos el pavimento desde la preparación de la base hasta el color y sellado final. Cada servicio está respaldado por trabajos reales del equipo.</p></div>
-      <div class="service-list">
-        <a href="#impreso"><span>01</span><div><h3>Hormigón y pavimento impreso</h3><p>Acabados de piedra, losa, adoquín y diseños personalizados para patios, accesos, caminos y zonas exteriores.</p></div><b>↘</b></a>
-        <a href="#pulido"><span>02</span><div><h3>Pavimento pulido</h3><p>Superficies continuas, resistentes y de fácil mantenimiento para grandes áreas residenciales e industriales.</p></div><b>↘</b></a>
-        <a href="#vertical"><span>03</span><div><h3>Revestimiento vertical decorativo</h3><p>Texturas minerales en muros y cerramientos con efecto piedra, realizadas y coloreadas a mano.</p></div><b>↘</b></a>
-        <a href="#contacto"><span>04</span><div><h3>Pavimentos continuos</h3><p>Soluciones funcionales sin juntas para garajes, talleres, comercios y zonas de trabajo.</p></div><b>↗</b></a>
-        <a href="#contacto"><span>05</span><div><h3>Reparación y mantenimiento</h3><p>Diagnóstico, preparación y renovación de superficies para recuperar seguridad, estética y durabilidad.</p></div><b>↗</b></a>
+    <section id="especialidades" class="section home-intro">
+      <div class="section-head"><h2>Un oficio.<br>Tres especialidades.</h2><p>Soluciones resistentes y decorativas adaptadas al uso, al entorno y al acabado que buscas.</p></div>
+      <div class="home-links">
+        <a href="servicios.html#impreso"><span>01</span><h3>Hormigón impreso</h3><p>Patios, accesos y exteriores con texturas y colores personalizados.</p><b>Ver servicio →</b></a>
+        <a href="servicios.html#pulido"><span>02</span><h3>Pavimento pulido</h3><p>Superficies continuas de alta resistencia y mantenimiento sencillo.</p><b>Ver servicio →</b></a>
+        <a href="servicios.html#vertical"><span>03</span><h3>Revestimiento vertical</h3><p>Muros decorativos modelados y coloreados para lograr un efecto piedra.</p><b>Ver servicio →</b></a>
       </div>
     </section>
 
-    <section id="proyectos" class="projects">
-      <div class="section projects-intro"><div class="section-head light"><h2>Obras reales,<br>resultados reales</h2><p>Una selección de trabajos ejecutados por Nacho Paveade. Pulsa cualquier fotografía para verla con más detalle.</p></div></div>
-
-      <article id="impreso" class="work-block section">
-        <div class="work-heading"><span>Servicio 01</span><div><h3>Pavimento impreso</h3><p>Dos proyectos, dos acabados propios</p></div></div>
-        <section class="project-case">
-          <div class="case-copy"><span>Proyecto A</span><h4>Patio rural en tono terracota</h4><p>Superficie exterior ejecutada por fases, con textura de piedra irregular y color integrado en el entorno existente.</p></div>
-          <div class="case-gallery gallery-two">
-            <button class="gallery-image wide" data-lightbox="assets/obras-reales/pavimento-impreso-proceso.jpg" data-caption="Ejecución del pavimento impreso en patio rural"><img src="assets/obras-reales/pavimento-impreso-proceso.jpg" alt="Ejecución de pavimento impreso en patio rural" width="1440" height="810" loading="lazy" decoding="async"></button>
-            <button class="gallery-image" data-lightbox="assets/obras-reales/pavimento-impreso-piedra.jpg" data-caption="Detalle final de textura piedra"><img src="assets/obras-reales/pavimento-impreso-piedra.jpg" alt="Detalle de pavimento impreso con textura de piedra" width="1440" height="1080" loading="lazy" decoding="async"></button>
-          </div>
-        </section>
-        <section class="project-case reverse">
-          <div class="case-copy"><span>Proyecto B</span><h4>Acceso decorativo con brújula</h4><p>Combinación de paños, cenefas y motivo central personalizado para crear un acceso exterior único.</p></div>
-          <div class="case-gallery gallery-three">
-            <button class="gallery-image wide" data-lightbox="assets/obras-reales/pavimento-impreso-brujula-panoramica.jpg" data-caption="Vista panorámica del acceso con brújula"><img src="assets/obras-reales/pavimento-impreso-brujula-panoramica.jpg" alt="Vista panorámica de pavimento impreso con brújula" width="1440" height="648" loading="lazy" decoding="async"></button>
-            <button class="gallery-image portrait" data-lightbox="assets/obras-reales/pavimento-impreso-camino.jpg" data-caption="Camino de losa con cenefa"><img src="assets/obras-reales/pavimento-impreso-camino.jpg" alt="Camino de pavimento impreso con diseño de losa" width="1080" height="1440" loading="lazy" decoding="async"></button>
-            <button class="gallery-image portrait" data-lightbox="assets/obras-reales/pavimento-impreso-brujula.jpg" data-caption="Detalle del motivo de brújula"><img src="assets/obras-reales/pavimento-impreso-brujula.jpg" alt="Detalle de brújula decorativa en pavimento impreso" width="1080" height="1440" loading="lazy" decoding="async"></button>
-          </div>
-        </section>
-      </article>
-
-      <article id="hormigon" class="work-block section warm-block">
-        <div class="work-heading"><span>Servicio 01</span><div><h3>Hormigón impreso</h3><p>Acceso residencial personalizado</p></div></div>
-        <section class="project-case compact-case">
-          <div class="case-copy"><h4>Losa y piedra con motivo central</h4><p>Diseño de varios moldes y cenefas, acabado en tono arena y una brújula decorativa como punto focal.</p></div>
-          <div class="case-gallery gallery-three">
-            <button class="gallery-image portrait" data-lightbox="assets/obras-reales/hormigon-impreso-acceso.jpg" data-caption="Acceso residencial en hormigón impreso"><img src="assets/obras-reales/hormigon-impreso-acceso.jpg" alt="Acceso residencial con hormigón impreso" width="1080" height="1440" loading="lazy" decoding="async"></button>
-            <button class="gallery-image portrait" data-lightbox="assets/obras-reales/hormigon-impreso-brujula.jpg" data-caption="Brújula integrada en el pavimento"><img src="assets/obras-reales/hormigon-impreso-brujula.jpg" alt="Brújula decorativa integrada en hormigón impreso" width="1080" height="1440" loading="lazy" decoding="async"></button>
-            <button class="gallery-image portrait" data-lightbox="assets/obras-reales/hormigon-impreso-acabado.jpg" data-caption="Detalle del acabado sellado"><img src="assets/obras-reales/hormigon-impreso-acabado.jpg" alt="Detalle final del hormigón impreso sellado" width="1080" height="1440" loading="lazy" decoding="async"></button>
-          </div>
-        </section>
-      </article>
-
-      <article id="pulido" class="work-block section">
-        <div class="work-heading"><span>Servicio 02</span><div><h3>Pavimento pulido</h3><p>Ejecución y acabado continuo</p></div></div>
-        <section class="project-case compact-case">
-          <div class="case-copy"><h4>Superficie exterior de alta resistencia</h4><p>Preparación, vertido, nivelación y pulido para conseguir una superficie continua y fácil de mantener.</p></div>
-          <div class="case-gallery gallery-two equal">
-            <button class="gallery-image" data-lightbox="assets/obras-reales/pavimento-pulido-ejecucion.jpg" data-caption="Proceso de ejecución del pavimento pulido"><img src="assets/obras-reales/pavimento-pulido-ejecucion.jpg" alt="Proceso de ejecución de pavimento pulido" width="1440" height="810" loading="lazy" decoding="async"></button>
-            <button class="gallery-image" data-lightbox="assets/obras-reales/pavimento-pulido-acabado.jpg" data-caption="Resultado del pavimento pulido"><img src="assets/obras-reales/pavimento-pulido-acabado.jpg" alt="Acabado final de pavimento pulido exterior" width="1440" height="810" loading="lazy" decoding="async"></button>
-          </div>
-        </section>
-      </article>
-
-      <article id="vertical" class="work-block section vertical-block">
-        <div class="work-heading"><span>Servicio 03</span><div><h3>Pavimento vertical</h3><p>Muro decorativo efecto piedra</p></div></div>
-        <section class="project-case compact-case">
-          <div class="case-copy"><h4>Textura mineral hecha a mano</h4><p>Modelado y coloración de revestimiento vertical para transformar un cerramiento exterior en un acabado pétreo continuo.</p></div>
-          <div class="case-gallery gallery-two equal">
-            <button class="gallery-image" data-lightbox="assets/obras-reales/pavimento-vertical-muro.jpg" data-caption="Vista general del revestimiento vertical"><img src="assets/obras-reales/pavimento-vertical-muro.jpg" alt="Muro exterior con revestimiento vertical efecto piedra" width="1440" height="810" loading="lazy" decoding="async"></button>
-            <button class="gallery-image" data-lightbox="assets/obras-reales/pavimento-vertical-detalle.jpg" data-caption="Detalle de la textura efecto piedra"><img src="assets/obras-reales/pavimento-vertical-detalle.jpg" alt="Detalle de revestimiento vertical decorativo" width="1440" height="810" loading="lazy" decoding="async"></button>
-          </div>
-        </section>
-      </article>
+    <section class="featured-work">
+      <a class="featured-image" href="proyectos.html" aria-label="Ver todas las obras reales"><img src="assets/galeria/impreso-obra-2/05.jpg" alt="Acceso decorativo de pavimento impreso terminado" width="1200" height="1600" decoding="async"></a>
+      <div><p class="section-label">Obras reales</p><h2>El acabado se demuestra en obra.</h2><p>Revisa 39 fotografías de cinco proyectos: procesos, detalles y resultados terminados.</p><a class="text-link" href="proyectos.html">Explorar los proyectos →</a></div>
     </section>
 
-    <section id="metodo" class="section method">
-      <div class="section-head"><h2>Un proceso claro, de principio a fin</h2><p>Controlamos cada fase para conseguir un acabado resistente, limpio y ajustado al entorno.</p></div>
-      <ol><li><b>01</b><div><h3>Visita y diagnóstico</h3><p>Revisamos el soporte, los accesos, el uso y el acabado deseado.</p></div></li><li><b>02</b><div><h3>Diseño y propuesta</h3><p>Definimos molde, color, cenefas, preparación y presupuesto detallado.</p></div></li><li><b>03</b><div><h3>Preparación y ejecución</h3><p>Preparamos la base y ejecutamos cada fase con control técnico.</p></div></li><li><b>04</b><div><h3>Sellado y entrega</h3><p>Protegemos el acabado y explicamos su mantenimiento.</p></div></li></ol>
-    </section>
-
-    <section class="areas"><div><h2>Trabajamos donde está tu proyecto</h2><p>Nos desplazamos por toda la Comunidad de Madrid y provincias cercanas.</p><a class="btn dark" href="#contacto">Consultar disponibilidad →</a></div><ul><li>Madrid capital</li><li>Corredor del Henares</li><li>Sierra de Madrid</li><li>Toledo</li><li>Guadalajara</li><li>Ávila y Segovia</li></ul></section>
-
-    <section id="nosotros" class="section about"><div class="brand-panel"><img src="assets/logo-nacho-paveade.jpeg" alt="Nacho Paveade, hormigón impreso y pavimentos decorativos" width="1536" height="1024" loading="lazy" decoding="async"></div><div><h2>Oficio, detalle y acabados que hablan por sí solos</h2><p class="lead">Nacho Paveade combina experiencia de obra, criterio decorativo y una ejecución cuidada.</p><p>Trabajamos con particulares, profesionales y empresas. Cada proyecto comienza con un diagnóstico honesto y se adapta al uso real del espacio, desde un acceso residencial hasta una gran superficie.</p><div class="principles"><span>Asesoramiento directo</span><span>Diseños personalizados</span><span>Obra planificada</span><span>Acabados duraderos</span></div></div></section>
-
-    <section class="cta-band"><div><p>¿Tienes una superficie en mente?</p><h2>Cuéntanos dónde y te proponemos la solución.</h2></div><a class="btn primary" href="#contacto">Pedir presupuesto →</a></section>
-
-    <section id="contacto" class="contact"><div><h2>Cuéntanos tu proyecto</h2><p>Envíanos unas medidas aproximadas, el tipo de espacio y su ubicación. Te responderemos para valorar la mejor solución.</p><div class="contact-data"><a href="tel:+34669666666">669 666 666</a><a href="mailto:hola@nachopaveade.es">hola@nachopaveade.es</a><span>Madrid · Toledo · Guadalajara</span><small>Teléfono y correo provisionales</small></div></div><form><label>Nombre<input name="nombre" required autocomplete="name"></label><label>Teléfono<input name="telefono" required autocomplete="tel"></label><label>Email<input type="email" name="email" autocomplete="email"></label><label>Localidad<input name="localidad" autocomplete="address-level2"></label><label class="wide">Tipo de proyecto<select name="tipo"><option>Hormigón / pavimento impreso</option><option>Pavimento pulido</option><option>Revestimiento vertical</option><option>Reparación / mantenimiento</option><option>Otro</option></select></label><label class="wide">Cuéntanos qué necesitas<textarea name="mensaje" rows="4" required></textarea></label><label class="check wide"><input type="checkbox" required> He leído y acepto la política de privacidad.</label><button class="btn primary wide" type="submit">Enviar solicitud →</button></form></section>
+    <section class="home-coverage"><div><p>Zona de trabajo</p><h2>Madrid, Toledo, Guadalajara y alrededores.</h2></div><a class="btn dark" href="empresa.html#zona">Consultar cobertura →</a></section>
   </main>
 
   <a class="whatsapp" href="https://wa.me/34669666666?text=Hola%20Nacho%20Paveade%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto." target="_blank" rel="noopener" aria-label="Hablar por WhatsApp con Nacho Paveade"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16.1 3A12.8 12.8 0 0 0 5 22.2L3.3 29l7-1.8A12.9 12.9 0 1 0 16.1 3Zm0 23.5c-2 0-4-.6-5.7-1.6l-.4-.2-4.1 1.1 1.1-4-.3-.4a10.5 10.5 0 1 1 9.4 5.1Zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.6 8.6 0 0 1-2.6-1.6 9.5 9.5 0 0 1-1.8-2.3c-.2-.3 0-.5.1-.6l.5-.6.3-.6c.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.6-.5-.8-.5h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.2.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.4-.3-.7-.4Z"/></svg><span>¿Hablamos?</span></a>
 
-  <footer><a class="footer-brand" href="#inicio"><img src="assets/logo-nacho-paveade.jpeg" alt="Nacho Paveade" width="1536" height="1024" loading="lazy"></a><p>Hormigón impreso y pavimentos decorativos para espacios con carácter.</p><div><a href="#servicios">Servicios</a><a href="#proyectos">Obras reales</a><a href="#nosotros">Nosotros</a><a href="#contacto">Contacto</a></div><small>© 2026 Nacho Paveade · Aviso legal · Privacidad · Cookies</small></footer>
+  <nav class="mobile-dock" aria-label="Navegación móvil"><a href="servicios.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg><span>Servicios</span></a><a href="proyectos.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 15l5-5 4 4 3-3 6 6"/></svg><span>Obras</span></a><a href="proceso.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 6h14M5 12h14M5 18h14"/></svg><span>Proceso</span></a><a href="contacto.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM5 6l7 6 7-6"/></svg><span>Contacto</span></a><a class="dock-whatsapp" href="https://wa.me/34669666666?text=Hola%20Nacho%20Paveade%2C%20quiero%20informaci%C3%B3n%20sobre%20un%20proyecto." target="_blank" rel="noopener"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.1 3A12.8 12.8 0 0 0 5 22.2L3.3 29l7-1.8A12.9 12.9 0 1 0 16.1 3Zm0 23.5c-2 0-4-.6-5.7-1.6l-.4-.2-4.1 1.1 1.1-4-.3-.4a10.5 10.5 0 1 1 9.4 5.1Zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.6 8.6 0 0 1-2.6-1.6 9.5 9.5 0 0 1-1.8-2.3c-.2-.3 0-.5.1-.6l.5-.6.3-.6c.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.6-.5-.8-.5h-.7c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.3 1.4 3.6c.2.2 2.4 3.7 5.9 5.2.8.4 1.5.6 2 .7.8.3 1.6.2 2.2.1.7-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.4-.3-.7-.4Z"/></svg><span>WhatsApp</span></a></nav>
 
-  <dialog class="lightbox" aria-label="Vista ampliada de la obra"><button class="lightbox-close" aria-label="Cerrar imagen">×</button><figure><img src="" alt=""><figcaption></figcaption></figure></dialog>
+  <footer><a class="footer-wordmark" href="index.html"><b>Nacho Paveade</b><span>Hormigón impreso · Pavimentos decorativos</span></a><nav aria-label="Navegación secundaria"><a href="servicios.html">Servicios</a><a href="proyectos.html">Obras reales</a><a href="empresa.html">Nosotros</a><a href="contacto.html">Contacto</a></nav><small>© 2026 Nacho Paveade · Aviso legal · Privacidad · Cookies</small></footer>
 </body>
 </html>
