@@ -1,5 +1,16 @@
 const header = document.querySelector('.header');
 const menu = document.querySelector('.menu');
+const mobileDock = document.querySelector('.mobile-dock');
+
+if (mobileDock) {
+  const currentPage = document.body.dataset.page;
+  const current = (page) => currentPage === page ? ' aria-current="page"' : '';
+  mobileDock.innerHTML = `
+    <a href="index.html"${current('inicio')}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5V21h-6v-6H9v6H3z"/></svg><span>Inicio</span></a>
+    <a href="servicios.html"${current('servicios')}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z"/></svg><span>Servicios</span></a>
+    <a href="proyectos.html"${current('proyectos')}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zM3 15l5-5 4 4 3-3 6 6"/></svg><span>Obras</span></a>
+    <a href="contacto.html"${current('contacto')}><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16v16H4zM5 6l7 6 7-6"/></svg><span>Contacto</span></a>`;
+}
 
 if (header && menu) {
   menu.addEventListener('click', () => {
@@ -131,7 +142,9 @@ if (projectBrowser) {
       const selected = buttonIndex === activeImage;
       button.classList.toggle('selected', selected);
       button.setAttribute('aria-current', selected ? 'true' : 'false');
-      if (selected && scrollThumbnail) button.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      if (selected && scrollThumbnail) {
+        thumbnails.scrollTo({ left: button.offsetLeft - (thumbnails.clientWidth - button.offsetWidth) / 2, behavior: 'smooth' });
+      }
     });
   }
 
@@ -190,6 +203,69 @@ if (projectBrowser) {
   }, { passive: true });
   renderProject(activeProject);
 }
+
+const serviceItems = [...document.querySelectorAll('.service-item')];
+
+serviceItems.forEach((item) => {
+  item.addEventListener('toggle', () => {
+    if (!item.open) return;
+    serviceItems.forEach((other) => {
+      if (other !== item) other.open = false;
+    });
+  });
+});
+
+document.querySelectorAll('.service-gallery').forEach((gallery) => {
+  const folder = gallery.dataset.folder;
+  const count = Number(gallery.dataset.count);
+  const alt = gallery.dataset.alt;
+  const images = imagePaths(folder, count);
+  const stage = gallery.querySelector('.service-stage');
+  const image = stage.querySelector('img');
+  const current = stage.querySelector('b');
+  const thumbnails = gallery.querySelector('.service-thumbs');
+  let active = 0;
+  let touchStartX = 0;
+
+  function select(index, scroll = true) {
+    active = (index + images.length) % images.length;
+    image.src = images[active];
+    image.alt = `${alt}, fotografía ${active + 1}`;
+    current.textContent = String(active + 1).padStart(2, '0');
+    thumbnails.querySelectorAll('button').forEach((button, buttonIndex) => {
+      const selected = buttonIndex === active;
+      button.setAttribute('aria-current', String(selected));
+      if (selected && scroll) {
+        thumbnails.scrollTo({ left: button.offsetLeft - (thumbnails.clientWidth - button.offsetWidth) / 2, behavior: 'smooth' });
+      }
+    });
+  }
+
+  images.forEach((src, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.setAttribute('aria-label', `Ver fotografía ${index + 1} de ${count}`);
+    const thumbnail = document.createElement('img');
+    thumbnail.src = src;
+    thumbnail.alt = '';
+    thumbnail.loading = 'lazy';
+    thumbnail.decoding = 'async';
+    button.append(thumbnail);
+    button.addEventListener('click', () => select(index));
+    thumbnails.append(button);
+  });
+
+  gallery.querySelector('.service-prev').addEventListener('click', () => select(active - 1));
+  gallery.querySelector('.service-next').addEventListener('click', () => select(active + 1));
+  stage.addEventListener('touchstart', (event) => {
+    touchStartX = event.changedTouches[0].clientX;
+  }, { passive: true });
+  stage.addEventListener('touchend', (event) => {
+    const distance = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(distance) >= 45) select(active + (distance < 0 ? 1 : -1));
+  }, { passive: true });
+  select(0, false);
+});
 
 const contactForm = document.querySelector('#contact-form');
 if (contactForm) {
