@@ -1,6 +1,8 @@
-# Onic Pavimentos
+# Nacho Paveade
 
-Primera versión de la web corporativa mobile-first para una empresa de pavimentos en Madrid, Toledo y Guadalajara.
+Web corporativa mobile-first de Nacho Paveade, especialista en hormigón impreso y pavimentos decorativos en Madrid, Toledo y Guadalajara.
+
+La galería incluye una selección optimizada de obras reales de pavimento impreso, hormigón impreso, pavimento pulido y revestimiento vertical.
 
 ## Desarrollo
 
@@ -9,5 +11,4 @@ npm install
 npm run start
 ```
 
-El formulario abre un correo preparado para que funcione sin servidor. Antes de lanzamiento comercial deben sustituirse el teléfono y el correo provisionales.
-
+El formulario abre un correo preparado para funcionar sin servidor. El teléfono y el correo siguen siendo datos provisionales hasta que el cliente confirme los definitivos.
