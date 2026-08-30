@@ -1,6 +1,6 @@
 # Nacho Paveade
 
-Web corporativa mobile-first de Nacho Paveade, especialista en hormigón impreso y pavimentos decorativos en Madrid, Toledo y Guadalajara.
+Web corporativa mobile-first de Nacho Paveade, especialista en hormigón impreso y pavimentos decorativos con servicio en toda España.
 
 La galería incluye una selección optimizada de obras reales de pavimento impreso, hormigón impreso, pavimento pulido y revestimiento vertical.
 

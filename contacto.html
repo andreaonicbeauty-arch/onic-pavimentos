@@ -2,18 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Solicita presupuesto para tu proyecto de pavimentación con Nacho Paveade.">
-  <meta name="theme-color" content="#0b0c0d"><title>Contacto | Nacho Paveade</title><link rel="icon" href="assets/logo-nacho-paveade-mark.jpg"><link rel="stylesheet" href="styles.css"><script defer src="script.js"></script>
+  <meta name="theme-color" content="#0b0c0d"><title>Contacto | Nacho Paveade</title><link rel="icon" href="assets/logo-nacho-paveade-mark.jpg"><link rel="stylesheet" href="styles.css?v=20260830"><script defer src="script.js?v=20260830"></script>
 </head>
 <body data-page="contacto">
   <header class="header"><a class="brand" href="index.html" aria-label="Nacho Paveade, inicio"><img src="assets/logo-nacho-paveade-mark.jpg" alt="" width="820" height="650"><span><b>Nacho Paveade</b><small>Hormigón impreso · Pavimentos decorativos</small></span></a><button class="menu" type="button" aria-label="Abrir menú" aria-expanded="false"><i></i><i></i></button><nav aria-label="Navegación principal"><a href="servicios.html">Servicios</a><a href="proyectos.html">Obras reales</a><a href="proceso.html">Cómo trabajamos</a><a href="empresa.html">Nosotros</a><a class="nav-cta" href="contacto.html" aria-current="page">Pedir presupuesto</a></nav></header>
 
   <main class="subpage contact-page">
-    <section class="contact-intro section"><div><p class="section-label">Contacto</p><h1>Cuéntanos tu proyecto</h1><p>Con unas medidas aproximadas, la localidad y el uso del espacio podemos preparar una primera valoración.</p></div><div class="contact-data"><a href="tel:+34669666666">669 666 666</a><a href="mailto:hola@nachopaveade.es">hola@nachopaveade.es</a><span>Madrid · Toledo · Guadalajara</span><small>Teléfono y correo provisionales</small></div></section>
+    <section class="contact-intro section"><div><p class="section-label">Contacto</p><h1>Cuéntanos tu proyecto</h1><p>Con unas medidas aproximadas, la localidad y el uso del espacio podemos preparar una primera valoración.</p></div><div class="contact-data"><a href="tel:+34624468337">624 468 337</a><a href="mailto:oniciucnarcis7@gmail.com">oniciucnarcis7@gmail.com</a><span>Servicio en toda España</span></div></section>
     <section class="contact-form-section section">
       <form id="contact-form">
-        <label>Nombre<input name="nombre" required autocomplete="name"></label><label>Teléfono<input name="telefono" required autocomplete="tel"></label><label>Email<input type="email" name="email" autocomplete="email"></label><label>Localidad<input name="localidad" autocomplete="address-level2"></label>
+        <label>Nombre<input name="nombre" required minlength="2" maxlength="80" autocomplete="name"></label><label>Teléfono<input name="telefono" type="tel" required inputmode="tel" pattern="[0-9+() .-]{9,20}" maxlength="20" autocomplete="tel"></label><label>Email<input type="email" name="email" required maxlength="120" autocomplete="email"></label><label>Localidad<input name="localidad" required minlength="2" maxlength="100" autocomplete="address-level2"></label>
         <label class="wide">Tipo de proyecto<select name="tipo"><option>Hormigón / pavimento impreso</option><option>Pavimento pulido</option><option>Revestimiento vertical</option><option>Reparación / mantenimiento</option><option>Otro</option></select></label>
-        <label class="wide">Cuéntanos qué necesitas<textarea name="mensaje" rows="5" required></textarea></label><label class="check wide"><input type="checkbox" required> He leído y acepto la política de privacidad.</label><button class="btn primary wide" type="submit">Enviar solicitud →</button>
+        <label class="wide">Cuéntanos qué necesitas<textarea name="mensaje" rows="5" required minlength="10" maxlength="1500"></textarea></label><label class="check wide"><input type="checkbox" required> He leído y acepto la política de privacidad.</label><p class="form-note wide">Al enviar se abrirá tu aplicación de correo con el mensaje preparado. Revisa el contenido y pulsa Enviar desde allí.</p><button class="btn primary wide" type="submit">Preparar correo →</button>
       </form>
     </section>
   </main>

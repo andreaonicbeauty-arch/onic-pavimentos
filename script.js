@@ -1,6 +1,12 @@
 const header = document.querySelector('.header');
 const menu = document.querySelector('.menu');
 const mobileDock = document.querySelector('.mobile-dock');
+const contactPhone = '34624468337';
+const contactEmail = 'oniciucnarcis7@gmail.com';
+
+document.querySelectorAll('a[href*="wa.me/34669666666"]').forEach((link) => {
+  link.href = link.href.replace('wa.me/34669666666', `wa.me/${contactPhone}`);
+});
 
 if (mobileDock) {
   const currentPage = document.body.dataset.page;
@@ -272,11 +278,18 @@ if (contactForm) {
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const data = new FormData(contactForm);
-    const subject = encodeURIComponent(`Solicitud web · ${data.get('tipo')} · ${data.get('localidad')}`);
+    const clean = (name, maxLength) => String(data.get(name) || '').trim().replace(/[\r\n]+/g, ' ').slice(0, maxLength);
+    const nombre = clean('nombre', 80);
+    const telefono = clean('telefono', 20);
+    const email = clean('email', 120);
+    const localidad = clean('localidad', 100);
+    const tipo = clean('tipo', 80);
+    const mensaje = String(data.get('mensaje') || '').trim().replace(/\r/g, '').slice(0, 1500);
+    const subject = encodeURIComponent(`Solicitud web · ${tipo} · ${localidad}`);
     const body = encodeURIComponent(
-      `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('telefono')}\nEmail: ${data.get('email')}\n` +
-      `Localidad: ${data.get('localidad')}\nTipo: ${data.get('tipo')}\n\n${data.get('mensaje')}`
+      `Nombre: ${nombre}\nTeléfono: ${telefono}\nEmail: ${email}\n` +
+      `Localidad: ${localidad}\nTipo: ${tipo}\n\n${mensaje}`
     );
-    window.location.href = `mailto:hola@nachopaveade.es?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${contactEmail}?subject=${subject}&body=${body}`;
   });
 }
