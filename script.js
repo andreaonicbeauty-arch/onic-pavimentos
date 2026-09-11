@@ -1,7 +1,7 @@
 const header = document.querySelector('.header');
 const menu = document.querySelector('.menu');
 const mobileDock = document.querySelector('.mobile-dock');
-const contactPhone = '34624468337';
+const contactPhone = '34643980232';
 const contactEmail = 'oniciucnarcis7@gmail.com';
 
 document.querySelectorAll('a[href*="wa.me/34669666666"]').forEach((link) => {
