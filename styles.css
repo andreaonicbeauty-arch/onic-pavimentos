@@ -321,6 +321,11 @@ footer small { padding-top: 20px; border-top: 1px solid #292929; color: #777; }
 
 .contact-form-section { display: block; max-width: 860px; }
 .contact-form-section form { padding: 0; }
+.social-links { display: flex; gap: 12px; margin-top: 22px; }
+.social-links a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-width: 100px; min-height: 80px; padding: 14px 20px; border: 1px solid rgba(190,160,100,.35); border-radius: 12px; color: var(--gold-light); background: #17191a; font-size: 12px; font-weight: 600; text-decoration: none; transition: background .2s, border-color .2s; }
+.social-links svg { width: 25px; height: 25px; }
+.social-links a:hover { background: #242321; border-color: var(--gold-light); }
+.social-links a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
 .contact-form-section aside, .whatsapp-button { display: none; }
 
 .mobile-dock { grid-template-columns: repeat(4, 1fr); }
