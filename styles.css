@@ -321,11 +321,14 @@ footer small { padding-top: 20px; border-top: 1px solid #292929; color: #777; }
 
 .contact-form-section { display: block; max-width: 860px; }
 .contact-form-section form { padding: 0; }
-.social-links { display: flex; gap: 12px; margin-top: 22px; }
-.social-links a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; min-width: 100px; min-height: 80px; padding: 14px 20px; border: 1px solid rgba(190,160,100,.35); border-radius: 12px; color: var(--gold-light); background: #17191a; font-size: 12px; font-weight: 600; text-decoration: none; transition: background .2s, border-color .2s; }
-.social-links svg { width: 25px; height: 25px; }
-.social-links a:hover { background: #242321; border-color: var(--gold-light); }
-.social-links a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 4px; }
+.social-section { background: #fff; color: #17191a; }
+.social-links { display: flex; gap: 16px; margin-top: 22px; }
+.social-links a { position: relative; display: grid; place-items: center; flex: 0 0 56px; width: 56px; height: 56px; border-radius: 50%; color: #fff; background: #0866ff; box-shadow: 0 4px 12px rgba(0,0,0,.14); text-decoration: none; transition: transform .2s; }
+.social-links a[href*="instagram.com"] { background: radial-gradient(circle at 30% 105%, #feda75 0%, #fa7e1e 30%, #d62976 55%, #962fbf 78%, #4f5bd5 100%); }
+.social-links svg { width: 34px; height: 34px; }
+.social-links a span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.social-links a:hover { transform: translateY(-2px); }
+.social-links a:focus-visible { outline: 3px solid #17191a; outline-offset: 4px; }
 .contact-form-section aside, .whatsapp-button { display: none; }
 
 .mobile-dock { grid-template-columns: repeat(4, 1fr); }
