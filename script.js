@@ -2,10 +2,10 @@ const header = document.querySelector('.header');
 const menu = document.querySelector('.menu');
 const mobileDock = document.querySelector('.mobile-dock');
 const contactPhone = '34643980232';
-const contactEmail = 'oniciucnarcis7@gmail.com';
+const contactEmail = 'nachopaveade@gmail.com';
 
-document.querySelectorAll('a[href*="wa.me/34669666666"]').forEach((link) => {
-  link.href = link.href.replace('wa.me/34669666666', `wa.me/${contactPhone}`);
+document.querySelectorAll('a[href*="wa.me/"]').forEach((link) => {
+  link.href = link.href.replace(/wa\.me\/\d+/, `wa.me/${contactPhone}`);
 });
 
 if (mobileDock) {
