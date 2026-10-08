@@ -212,6 +212,16 @@ if (projectBrowser) {
 
 const serviceItems = [...document.querySelectorAll('.service-item')];
 
+function openLinkedService() {
+  const item = serviceItems.find((service) => `#${service.id}` === window.location.hash);
+  if (!item) return;
+  serviceItems.forEach((service) => { service.open = service === item; });
+  requestAnimationFrame(() => item.scrollIntoView({ block: 'start' }));
+}
+
+openLinkedService();
+window.addEventListener('hashchange', openLinkedService);
+
 serviceItems.forEach((item) => {
   item.addEventListener('toggle', () => {
     if (!item.open) return;
@@ -275,6 +285,11 @@ document.querySelectorAll('.service-gallery').forEach((gallery) => {
 
 const contactForm = document.querySelector('#contact-form');
 if (contactForm) {
+  const requestedService = new URLSearchParams(window.location.search).get('servicio');
+  const serviceSelect = contactForm.elements.namedItem('tipo');
+  if ([...serviceSelect.options].some((option) => option.value === requestedService)) {
+    serviceSelect.value = requestedService;
+  }
   contactForm.addEventListener('submit', (event) => {
     event.preventDefault();
     const data = new FormData(contactForm);
