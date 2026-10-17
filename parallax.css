@@ -1,0 +1,77 @@
+.build-story { position: relative; background: #151817; color: #f4f0e8; --pour: 1; --finish: 1; --enter: 0; --inside: 0; }
+.build-story.is-animated { height: 310svh; }
+.build-story-pin { position: relative; display: flex; flex-direction: column; min-height: 780px; overflow: clip; background: radial-gradient(ellipse at 72% 30%, #333a32, #151817 65%); }
+.is-animated .build-story-pin { position: sticky; top: 72px; height: calc(100svh - 72px); min-height: 560px; }
+.build-story-top { z-index: 3; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 26px var(--pad) 0; }
+.build-story-top .section-label { margin: 0; color: var(--gold-light); }
+.build-story-tools { display: flex; gap: 18px; align-items: center; font-size: 11px; color: #d1d5cd; }
+.build-story-tools a { border-bottom: 1px solid #6b7169; }
+.motion-toggle { display: none; padding: 8px 10px; border: 1px solid #62685f; border-radius: 2px; background: transparent; color: #eee; font-size: 11px; }
+.build-story.is-ready .motion-toggle { display: block; }
+.build-story .motion-toggle[hidden] { display: none; }
+.build-story-body { position: relative; flex: 1; min-height: 0; display: grid; grid-template-columns: 36% 64%; align-items: center; padding: 0 var(--pad); }
+.build-story-copy { position: relative; z-index: 2; padding: 35px 0; }
+.build-story-copy h2 { font-size: clamp(48px, 5.6vw, 88px); margin: 0 0 25px; }
+.build-story-copy h2 em { font-style: normal; color: var(--gold-light); }
+.build-story-copy > p { max-width: 320px; color: #c2c7bd; font-size: 14px; }
+.build-story-copy .text-link { margin-top: 10px; font-size: 12px; color: var(--gold-light); }
+.build-scene { position: relative; width: 118%; margin-left: -10%; aspect-ratio: 1.32; overflow: hidden; border-radius: 2px; isolation: isolate; }
+.is-animated .build-scene { height: min(54vw, calc(100svh - 320px)); aspect-ratio: auto; }
+.build-scene svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: scale(calc(1 + var(--enter) * 3.6)); transform-origin: 61% 43%; opacity: calc(1 - var(--inside)); }
+.build-interior { position: absolute; inset: 0; height: 100%; object-fit: cover; opacity: var(--inside); transform: scale(calc(1.15 - var(--inside) * .15)); }
+.build-scene-note { position: absolute; z-index: 2; right: 16px; bottom: 10px; left: 16px; margin: 0; color: #d9ddd3; font-size: 9px; text-align: right; text-shadow: 0 1px 5px #000; }
+.concrete-spread { transform: scaleY(var(--pour)); transform-origin: 0 720px; }
+.concrete-pattern { opacity: var(--finish); }
+.pouring-stream { opacity: var(--stream, 0); }
+.pouring-stream > path:last-of-type { stroke-dasharray: 10 6; stroke-dashoffset: var(--flow, 0); }
+.concrete-tool { opacity: var(--tool, 0); transform: translate(var(--tool-x, 0px), var(--tool-y, 0px)); }
+.build-story-bottom { position: relative; z-index: 3; padding: 0 var(--pad) 26px; }
+.build-story-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; list-style: none; margin: 0; padding: 0; }
+.build-story-steps li { border-top: 1px solid #555b50; }
+.build-story-steps button { display: flex; align-items: baseline; gap: 13px; width: 100%; padding: 16px 0 12px; border: 0; text-align: left; background: transparent; color: #a1aa98; }
+.build-story-steps b { font: 600 13px Inter, sans-serif; color: var(--gold-light); }
+.build-story-steps span { font: 700 22px 'Barlow Condensed', sans-serif; text-transform: uppercase; }
+.build-story-steps p { max-width: 290px; font-size: 11px; line-height: 1.5; color: #b5bdad; margin: 0; }
+.build-story-steps button[aria-pressed="true"] { color: white; }
+.build-story-steps li:has([aria-pressed="true"]) { border-color: var(--gold-light); }
+.build-progress { height: 2px; margin-bottom: 23px; background: #3d4438; }
+.build-progress span { display: block; width: 100%; height: 100%; background: var(--gold-light); transform: scaleX(var(--progress, 1)); transform-origin: left; }
+.build-story button:focus-visible, .build-story a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 5px; }
+.hero.has-depth > img { transform: translateY(var(--hero-shift, 0px)) scale(1.12); }
+.hero.has-depth .hero-copy { transform: translateY(var(--copy-shift, 0px)); }
+.renovation-feature figure, .featured-image { overflow: hidden; }
+[data-depth] { transform: translateY(var(--depth-y, 0px)) scale(1.12); }
+@media (min-width: 1200px) { .build-story-top, .build-story-bottom, .build-story-body { padding-left: max(var(--pad), calc((100vw - 1320px) / 2)); padding-right: max(var(--pad), calc((100vw - 1320px) / 2)); } }
+@media (max-width: 760px) {
+  .in-build-story .whatsapp { bottom: 150px; }
+  .build-story.is-animated { height: 270svh; }
+  .build-story-pin { min-height: 780px; }
+  .is-animated .build-story-pin { height: calc(100svh - 138px); min-height: 530px; }
+  .build-story-top { padding-top: 18px; gap: 10px; }
+  .build-story-top .section-label { font-size: 10px; letter-spacing: .1em; }
+  .build-story-tools { gap: 10px; }
+  .build-story-tools a { font-size: 10px; }
+  .motion-toggle { padding: 6px; font-size: 10px; }
+  .build-story-body { display: flex; flex-direction: column; align-items: stretch; justify-content: center; padding-top: 10px; }
+  .build-story-copy { padding: 14px 0 0; }
+  .build-story-copy h2 { font-size: clamp(37px, 9vw, 51px); margin-bottom: 10px; max-width: 370px; }
+  .build-story-copy h2 br { display: none; }
+  .build-story-copy > p { font-size: 12px; max-width: 340px; margin-bottom: 8px; }
+  .build-story-copy .text-link { font-size: 11px; margin: 0; }
+  .build-scene { width: calc(100% + 30px); margin: 0 -15px; max-height: 43svh; aspect-ratio: 1.55; }
+  .is-animated .build-scene { height: min(66vw, calc(100svh - 390px)); min-height: 145px; flex-shrink: 1; }
+  .build-scene-note { font-size: 8px; bottom: 4px; }
+  .build-story-bottom { padding-bottom: 16px; }
+  .build-progress { margin-bottom: 10px; }
+  .build-story-steps { gap: 13px; }
+  .build-story-steps button { gap: 6px; padding: 10px 0 0; }
+  .build-story-steps b { font-size: 10px; }
+  .build-story-steps span { font-size: 18px; }
+  .build-story-steps p { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .build-story.is-animated { height: auto; }
+  .is-animated .build-story-pin { position: relative; top: auto; height: auto; }
+  .build-scene svg, .build-interior, [data-depth], .hero.has-depth > img, .hero.has-depth .hero-copy { transform: none; }
+}
