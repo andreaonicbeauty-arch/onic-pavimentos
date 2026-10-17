@@ -1,3 +1,5 @@
+import { responsivePhoto } from './responsive-images.js';
+
 const header = document.querySelector('.header');
 const menu = document.querySelector('.menu');
 const mobileDock = document.querySelector('.mobile-dock');
@@ -141,6 +143,7 @@ if (projectBrowser) {
     activeImage = (index + project.images.length) % project.images.length;
     if (animate) image.classList.add('changing');
     image.src = project.images[activeImage];
+    responsivePhoto(image, project.images[activeImage]);
     image.alt = `${project.alt}, fotografía ${activeImage + 1}`;
     current.textContent = String(activeImage + 1).padStart(2, '0');
     meter.style.width = `${((activeImage + 1) / project.images.length) * 100}%`;
@@ -174,8 +177,9 @@ if (projectBrowser) {
       button.setAttribute('aria-label', `Ver fotografía ${index + 1} de ${project.images.length}`);
       const thumbnail = document.createElement('img');
       thumbnail.src = src;
+      responsivePhoto(thumbnail, src, '76px');
       thumbnail.alt = '';
-      thumbnail.loading = index < 3 ? 'eager' : 'lazy';
+      thumbnail.loading = 'lazy';
       thumbnail.decoding = 'async';
       button.append(thumbnail);
       button.addEventListener('click', () => updatePhoto(index));
@@ -246,6 +250,7 @@ document.querySelectorAll('.service-gallery').forEach((gallery) => {
   function select(index, scroll = true) {
     active = (index + images.length) % images.length;
     image.src = images[active];
+    responsivePhoto(image, images[active]);
     image.alt = `${alt}, fotografía ${active + 1}`;
     current.textContent = String(active + 1).padStart(2, '0');
     thumbnails.querySelectorAll('button').forEach((button, buttonIndex) => {
@@ -263,6 +268,7 @@ document.querySelectorAll('.service-gallery').forEach((gallery) => {
     button.setAttribute('aria-label', `Ver fotografía ${index + 1} de ${count}`);
     const thumbnail = document.createElement('img');
     thumbnail.src = src;
+    responsivePhoto(thumbnail, src, '64px');
     thumbnail.alt = '';
     thumbnail.loading = 'lazy';
     thumbnail.decoding = 'async';

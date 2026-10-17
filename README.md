@@ -30,3 +30,11 @@ Preferencia del usuario (2026-10-08): orientar los contenidos y el SEO de reform
 La portada incorpora `parallax.css` y `parallax.js`: una ilustración arquitectónica con preparación del terreno, vertido y nivelación del hormigón, textura de pavimento y acercamiento al interior de la vivienda. La imagen interior es ilustrativa y está identificada como generada con IA. Las fotos de obras reales permanecen en su galería.
 
 El movimiento sigue el scroll sin bloquearlo; los botones permiten elegir una fase, pausar el movimiento o saltar a los servicios. Se respeta `prefers-reduced-motion`, y sin JavaScript queda una escena estática con los enlaces accesibles. No se añaden dependencias ni vídeos de reproducción automática.
+
+## Movimiento e imágenes en todas las páginas
+
+`motion.js` y `motion.css` aplican profundidad, desplazamiento lateral, zoom, movimiento inverso y perspectiva a las fotografías. Los revelados usan máscaras verticales, laterales y diagonales. El cursor añade un desplazamiento ligero en escritorio; en móvil los efectos principales dependen del scroll. Un botón en la cabecera pausa todos los efectos y recuerda la preferencia. Las galerías conservan sus controles, miniaturas y visor del original completo.
+
+Se actualizan únicamente las imágenes visibles mediante IntersectionObserver y un único requestAnimationFrame por evento, sin bucle permanente. Las miniaturas y fotos secundarias se cargan de forma diferida. `responsive-images.js` asigna srcset y sizes a las galerías; las imágenes HTML también los incluyen. Las copias JPEG de 160, 640 y 960 píxeles están en `assets/responsive/`; los originales permanecen intactos. Al incorporar fotos nuevas deben generarse sus copias y actualizarse el mapa de dimensiones.
+
+Las nueve páginas tienen títulos y descripciones propios, canonical, datos de negocio GeneralContractor, entidad de página y migas de pan. Inicio y servicios incluyen un catálogo de los servicios que aparecen en el contenido. El sitemap conserva las URLs públicas y las fechas reales de modificación. No añadir reseñas, precios, direcciones ni garantías que no estén confirmados.

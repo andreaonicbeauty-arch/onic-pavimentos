@@ -4,8 +4,6 @@ if (story) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const toggle = story.querySelector('.motion-toggle');
   const steps = [...story.querySelectorAll('[data-build-step]')];
-  const hero = document.querySelector('.hero');
-  const depthImages = [...document.querySelectorAll('[data-depth]')];
   let paused = false;
   let frame = 0;
   let lastProgress = -1;
@@ -39,27 +37,12 @@ if (story) {
     const pin = story.querySelector('.build-story-pin');
     const top = parseFloat(getComputedStyle(pin).top) || 72;
     render(clamp((top - rect.top) / Math.max(1, rect.height - pin.offsetHeight)));
-    if (hero) {
-      const heroRect = hero.getBoundingClientRect();
-      if (heroRect.bottom > 0) {
-        const travel = Math.max(0, 72 - heroRect.top);
-        hero.style.setProperty('--hero-shift', `${Math.min(55, travel * .12)}px`);
-        hero.style.setProperty('--copy-shift', `${Math.min(24, travel * .045)}px`);
-      }
-    }
-    depthImages.forEach((image) => {
-      const bounds = image.parentElement.getBoundingClientRect();
-      if (bounds.bottom < 0 || bounds.top > innerHeight) return;
-      const offset = (bounds.top + bounds.height / 2 - innerHeight / 2) * .055;
-      image.style.setProperty('--depth-y', `${Math.max(-28, Math.min(28, offset))}px`);
-    });
   }
   const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
 
   function configure() {
     const animated = !paused && !reducedMotion.matches;
     story.classList.toggle('is-animated', animated);
-    hero?.classList.toggle('has-depth', animated);
     toggle.setAttribute('aria-pressed', String(paused));
     toggle.textContent = paused ? 'Activar movimiento' : 'Pausar movimiento';
     toggle.hidden = reducedMotion.matches;
@@ -67,9 +50,6 @@ if (story) {
     if (animated) schedule();
     else {
       render(1);
-      hero?.style.removeProperty('--hero-shift');
-      hero?.style.removeProperty('--copy-shift');
-      depthImages.forEach((image) => image.style.setProperty('--depth-y', '0px'));
     }
   }
   steps.forEach((button) => button.addEventListener('click', () => {
@@ -83,11 +63,21 @@ if (story) {
     }
   }));
   toggle.addEventListener('click', () => {
+    if (document.documentElement.classList.contains('motion-ready')) {
+      document.dispatchEvent(new Event('site-motion-toggle'));
+      return;
+    }
     const previousTop = story.getBoundingClientRect().top;
     paused = !paused;
     configure();
     // Keep the scene visible when collapsing its scroll distance.
     if (previousTop < 72) story.scrollIntoView({ behavior: 'instant', block: 'start' });
+  });
+  document.addEventListener('site-motion-change', (event) => {
+    const previous = story.getBoundingClientRect();
+    paused = !event.detail.enabled;
+    configure();
+    if (previous.top < 72 && previous.bottom > 72) story.scrollIntoView({ behavior: 'instant', block: 'start' });
   });
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule, { passive: true });

@@ -37,14 +37,11 @@
 .build-progress { height: 2px; margin-bottom: 23px; background: #3d4438; }
 .build-progress span { display: block; width: 100%; height: 100%; background: var(--gold-light); transform: scaleX(var(--progress, 1)); transform-origin: left; }
 .build-story button:focus-visible, .build-story a:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 5px; }
-.hero.has-depth > img { transform: translateY(var(--hero-shift, 0px)) scale(1.12); }
-.hero.has-depth .hero-copy { transform: translateY(var(--copy-shift, 0px)); }
 .renovation-feature figure, .featured-image { overflow: hidden; }
-[data-depth] { transform: translateY(var(--depth-y, 0px)) scale(1.12); }
 @media (min-width: 1200px) { .build-story-top, .build-story-bottom, .build-story-body { padding-left: max(var(--pad), calc((100vw - 1320px) / 2)); padding-right: max(var(--pad), calc((100vw - 1320px) / 2)); } }
 @media (max-width: 760px) {
   .in-build-story .whatsapp { bottom: 150px; }
-  .build-story.is-animated { height: 270svh; }
+  .build-story.is-animated { height: 230svh; }
   .build-story-pin { min-height: 780px; }
   .is-animated .build-story-pin { height: calc(100svh - 138px); min-height: 530px; }
   .build-story-top { padding-top: 18px; gap: 10px; }
@@ -73,5 +70,5 @@
   html { scroll-behavior: auto; }
   .build-story.is-animated { height: auto; }
   .is-animated .build-story-pin { position: relative; top: auto; height: auto; }
-  .build-scene svg, .build-interior, [data-depth], .hero.has-depth > img, .hero.has-depth .hero-copy { transform: none; }
+  .build-scene svg, .build-interior { transform: none; }
 }
