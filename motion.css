@@ -3,6 +3,7 @@
 .np-media { display: block; min-width: 0; width: 100%; background: #252923; }
 .np-frame > .np-photo { display: block; width: 100%; height: 100%; object-fit: cover; transform: translate3d(var(--np-x, 0px), var(--np-y, 0px), 0) scale(var(--np-scale, 1.12)) rotate(var(--np-roll, 0deg)); transform-origin: center; }
 .np-frame[data-motion="tilt"] > .np-photo { transform: perspective(1100px) translate3d(var(--np-x, 0px), var(--np-y, 0px), 0) rotateX(var(--np-rx, 0deg)) rotateY(var(--np-ry, 0deg)) scale(var(--np-scale, 1.1)); }
+.lightbox .np-frame > .np-photo { object-fit: contain; }
 .np-frame[data-motion="thumbnail"] > .np-photo { transition: transform .4s ease; }
 .np-frame[data-motion="thumbnail"]:hover > .np-photo { transform: translateY(-2px) scale(1.15); }
 .np-frame.np-active > .np-photo { will-change: transform; }
@@ -15,13 +16,6 @@
 .project-thumbnails .np-frame { overflow: hidden; }
 .np-logo { transition: transform .4s ease; animation: np-logo-in .8s ease both; }
 .brand:hover .np-logo { transform: perspective(300px) rotateY(-12deg) scale(1.05); }
-.motion-switch { display: inline-flex; flex: 0 0 auto; align-items: center; gap: 7px; min-height: 38px; margin: 0 12px 0 auto; padding: 8px 10px; color: #e4bd6c; border: 1px solid #5d523c; background: #171713; font: 600 11px Inter, sans-serif; }
-.motion-switch svg { width: 13px; height: 13px; fill: currentColor; }
-.motion-switch[aria-pressed="true"] { color: #d3d3ca; border-color: #555; }
-.motion-switch:focus-visible { outline: 2px solid #e4bd6c; outline-offset: 4px; }
-.motion-switch .motion-play { display: none; }
-.motion-switch[aria-pressed="true"] .motion-play { display: block; }
-.motion-switch[aria-pressed="true"] .motion-pause { display: none; }
 
 /* One-shot image reveals, independently from the continuous parallax. */
 .np-seen[data-reveal="curtain"] { animation: np-curtain 1.15s cubic-bezier(.18,.65,.2,1) both; }
@@ -29,6 +23,7 @@
 .np-seen[data-reveal="focus"] { animation: np-focus 1.15s cubic-bezier(.18,.65,.2,1) both; }
 .np-seen[data-reveal="diagonal"] { animation: np-diagonal 1.15s cubic-bezier(.18,.65,.2,1) both; }
 .np-seen[data-reveal="fade"] { animation: np-fade .8s ease both; }
+.np-seen[data-reveal] { animation-delay: var(--np-delay, 0ms); }
 @keyframes np-curtain { from { clip-path: inset(100% 0 0); } to { clip-path: inset(0); } }
 @keyframes np-side { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0); } }
 @keyframes np-focus { from { clip-path: inset(15% 12%); opacity: .4; } to { clip-path: inset(0); opacity: 1; } }
@@ -36,29 +31,24 @@
 @keyframes np-fade { from { opacity: .35; } to { opacity: 1; } }
 @keyframes np-logo-in { from { opacity: .3; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 .lightbox[open] img { animation: np-viewer-in .45s ease both; }
-@keyframes np-viewer-in { from { opacity: .25; transform: scale(.97); } to { opacity: 1; transform: none; } }
+@keyframes np-viewer-in { from { opacity: .25; filter: blur(2px); } to { opacity: 1; filter: blur(0); } }
 
-.motion-paused .np-frame > .np-photo, .motion-paused .hero.np-frame .hero-copy,
-.motion-paused .np-logo, .motion-paused .lightbox[open] img { transform: none; animation: none; will-change: auto; }
-.motion-paused .np-frame { animation: none; clip-path: none; }
+.motion-reduced .np-frame > .np-photo, .motion-reduced .hero.np-frame .hero-copy,
+.motion-reduced .np-logo, .motion-reduced .lightbox[open] img { transform: none; animation: none; will-change: auto; }
+.motion-reduced .np-frame { animation: none; clip-path: none; }
 @media (min-width: 761px) {
   .page-hero > .np-page-media { height: 400px; aspect-ratio: auto; }
   .renovation-feature .np-renovation-media { min-height: 520px; height: 100%; }
   .work-gallery-grid > .np-work-media { height: 420px; }
-  .motion-switch { margin-left: 18px; margin-right: 22px; }
 }
 @media (min-width: 761px) and (max-width: 999px) {
   .page-hero > .np-page-media { height: auto; aspect-ratio: 16 / 9; }
   .renovation-feature .np-renovation-media { min-height: 0; height: auto; }
 }
 @media (max-width: 760px) {
-  .motion-switch { padding: 8px; margin-right: 9px; font-size: 10px; }
-  .motion-switch span { display: none; }
-  .motion-switch { width: 44px; min-height: 44px; justify-content: center; }
-  .np-seen { animation-duration: .85s; }
+  .np-seen[data-reveal] { animation-duration: .85s; }
 }
 @media (prefers-reduced-motion: reduce) {
   .np-frame, .np-logo, .lightbox[open] img { animation: none !important; clip-path: none !important; }
   .np-frame > .np-photo, .hero.np-frame .hero-copy, .brand .np-logo { transform: none !important; will-change: auto; transition: none; }
-  .motion-switch { display: none; }
 }

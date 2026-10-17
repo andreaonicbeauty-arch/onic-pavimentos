@@ -4,44 +4,60 @@ const root = document.documentElement;
 const frames = new Set();
 const visible = new Set();
 const registered = new WeakSet();
-let paused = false;
+const positions = new WeakMap();
 let pending = 0;
 let serial = 0;
-try { paused = localStorage.getItem('nacho-motion-paused') === 'true'; } catch { /* Storage is optional. */ }
+let lastFrame = 0;
 
 const clamp = (value, min = -1, max = 1) => Math.min(max, Math.max(min, value));
-const moving = () => !paused && !reduced.matches;
+const moving = () => !reduced.matches;
 
-function schedule() { if (!pending) pending = requestAnimationFrame(render); }
-function render() {
+function schedule() { if (!pending && !document.hidden && moving()) pending = requestAnimationFrame(render); }
+function render(time) {
   pending = 0;
-  if (!moving()) return;
+  if (!moving() || document.hidden) return;
+  const blend = 1 - Math.exp(-Math.min(time - lastFrame || 16, 64) / 75);
+  lastFrame = time;
+  let settling = false;
   // Batch layout reads before all style writes. Only nearby photos participate.
   const measurements = [...visible].filter((frame) => frame.isConnected).map((frame) => ({ frame, box: frame.getBoundingClientRect() }));
   const mobile = innerWidth <= 760;
   for (const { frame, box } of measurements) {
     if (!box.height) continue;
     const p = clamp((innerHeight / 2 - box.top - box.height / 2) / ((innerHeight + box.height) / 2));
-    const strength = mobile ? .55 : 1;
-    const maxTravel = Math.min(box.height * .055, 38) * strength;
+    const strength = mobile ? .65 : 1;
+    const maxTravel = Math.min(box.height * .07, 46) * strength;
     const type = frame.dataset.motion;
-    let x = 0, y = -p * maxTravel, zoom = 1.14, roll = 0, rx = 0, ry = 0;
-    if (type === 'depth') { y = -p * maxTravel * 1.25; zoom = 1.16; }
-    if (type === 'pan') { x = p * Math.min(box.width * .04, 28) * Number(frame.dataset.direction) * strength; y *= .4; zoom = 1.14; }
-    if (type === 'zoom') { zoom = 1.06 + (1 - (p + 1) / 2) * .16; y *= .4; }
-    if (type === 'rise') { y *= -1; roll = p * .65 * strength; zoom = 1.15; }
-    if (type === 'tilt') { rx = p * 2.5 * strength; ry = p * -3 * strength; zoom = 1.1; y *= .5; }
-    if (type === 'thumbnail') { y = -p * 3; zoom = 1.07; }
+    let x = 0, y = -p * maxTravel, zoom = 1.17, roll = 0, rx = 0, ry = 0;
+    if (type === 'depth') { y = -p * maxTravel * 1.15; zoom = 1.19; }
+    if (type === 'pan') { x = p * Math.min(box.width * .045, 34) * Number(frame.dataset.direction) * strength; y *= .35; zoom = 1.17; }
+    if (type === 'zoom') { zoom = 1.10 + (1 - (p + 1) / 2) * .15; y *= .35; }
+    if (type === 'rise') { y *= -1; roll = p * .7 * strength; zoom = 1.18; }
+    if (type === 'tilt') { rx = p * 2.5 * strength; ry = p * -3 * strength; zoom = 1.14; y *= .45; }
+    if (type === 'thumbnail') { y = -p * 4; zoom = 1.12; }
+    // Keep the complete photograph inside the enlarged viewer.
+    if (type === 'viewer') { y = -p * 4; zoom = .97; }
     const pointerX = Number(frame.dataset.pointerX || 0);
     const pointerY = Number(frame.dataset.pointerY || 0);
-    frame.style.setProperty('--np-x', `${(x + pointerX * 7).toFixed(2)}px`);
-    frame.style.setProperty('--np-y', `${(y + pointerY * 5).toFixed(2)}px`);
-    frame.style.setProperty('--np-scale', zoom.toFixed(4));
-    frame.style.setProperty('--np-roll', `${roll.toFixed(3)}deg`);
-    frame.style.setProperty('--np-rx', `${(rx - pointerY * 2).toFixed(3)}deg`);
-    frame.style.setProperty('--np-ry', `${(ry + pointerX * 3).toFixed(3)}deg`);
-    if (frame.classList.contains('hero')) frame.style.setProperty('--np-copy-y', `${(p * 20 * strength).toFixed(2)}px`);
+    const target = { x: x + pointerX * 7, y: y + pointerY * 5, scale: zoom, roll, rx: rx - pointerY * 2, ry: ry + pointerX * 3, copy: p * 20 * strength };
+    const current = positions.get(frame) || { ...target };
+    for (const key of Object.keys(target)) {
+      const distance = target[key] - current[key];
+      const tolerance = key === 'scale' ? .0001 : .015;
+      current[key] = Math.abs(distance) < tolerance ? target[key] : current[key] + distance * blend;
+      if (Math.abs(distance) >= tolerance) settling = true;
+    }
+    positions.set(frame, current);
+    frame.style.setProperty('--np-x', `${current.x.toFixed(2)}px`);
+    frame.style.setProperty('--np-y', `${current.y.toFixed(2)}px`);
+    frame.style.setProperty('--np-scale', current.scale.toFixed(4));
+    frame.style.setProperty('--np-roll', `${current.roll.toFixed(3)}deg`);
+    frame.style.setProperty('--np-rx', `${current.rx.toFixed(3)}deg`);
+    frame.style.setProperty('--np-ry', `${current.ry.toFixed(3)}deg`);
+    if (frame.classList.contains('hero')) frame.style.setProperty('--np-copy-y', `${current.copy.toFixed(2)}px`);
   }
+  // Settle gently after a scroll, then stop requesting frames while idle.
+  if (settling) schedule();
 }
 
 const observer = new IntersectionObserver((entries) => {
@@ -63,13 +79,15 @@ function attach(image) {
   if (registered.has(image)) return;
   registered.add(image);
   if (image.closest('.brand')) { image.classList.add('np-logo'); return; }
-  // The construction scene already has its own scroll narrative, while the
-  // full-size viewer keeps the whole original photo visible without cropping.
-  if (image.closest('.build-scene, .lightbox')) return;
+  // This image follows the house's dedicated scroll timeline.
+  if (image.closest('.build-scene')) { image.classList.add('np-story-photo'); return; }
   let frame = image.parentElement;
   let type = 'depth';
-  let reveal = 'curtain';
-  if (frame.classList.contains('page-hero')) {
+  // Keep the headline and main call to action visible on the first paint.
+  let reveal = frame.classList.contains('hero') ? 'none' : 'curtain';
+  if (image.closest('.lightbox')) {
+    type = 'viewer'; reveal = 'none';
+  } else if (frame.classList.contains('page-hero')) {
     const wrapper = document.createElement('span');
     wrapper.className = 'np-media np-page-media';
     image.before(wrapper); wrapper.append(image); frame = wrapper;
@@ -103,14 +121,15 @@ function attach(image) {
   frame.dataset.motion = type;
   frame.dataset.reveal = reveal;
   frame.dataset.direction = serial % 2 ? '1' : '-1';
+  frame.style.setProperty('--np-delay', `${type === 'thumbnail' ? 0 : (serial % 3) * 65}ms`);
   image.classList.add('np-photo');
   image.removeAttribute('data-depth');
   frames.add(frame);
   observer.observe(frame);
   image.addEventListener('load', () => {
     schedule();
-    if (moving() && image.closest('.project-photo, .service-stage')) {
-      image.animate([{ opacity: .4, filter: 'blur(3px)' }, { opacity: 1, filter: 'blur(0px)' }], { duration: 480, easing: 'ease-out' });
+    if (moving() && image.closest('.project-photo, .service-stage, .lightbox')) {
+      image.animate([{ opacity: .35, filter: 'blur(2px)' }, { opacity: 1, filter: 'blur(0px)' }], { duration: 550, easing: 'cubic-bezier(.2,.65,.2,1)' });
     }
   });
   if (type !== 'thumbnail') {
@@ -131,32 +150,15 @@ function scan(container) {
   container.querySelectorAll('img').forEach(attach);
 }
 
-const header = document.querySelector('.header');
-const switchButton = document.createElement('button');
-switchButton.type = 'button';
-switchButton.className = 'motion-switch';
-switchButton.innerHTML = '<svg class="motion-pause" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 2h3v12H3zm7 0h3v12h-3z"/></svg><svg class="motion-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2v12l10-6z"/></svg><span>Efectos</span>';
-if (header) header.insertBefore(switchButton, header.querySelector('.menu'));
-
 function configure() {
-  root.classList.toggle('motion-paused', !moving());
-  switchButton.setAttribute('aria-pressed', String(paused));
-  switchButton.setAttribute('aria-label', paused ? 'Activar todos los efectos de movimiento' : 'Pausar todos los efectos de movimiento');
-  switchButton.title = paused ? 'Activar efectos' : 'Pausar efectos';
-  document.dispatchEvent(new CustomEvent('site-motion-change', { detail: { enabled: moving() } }));
+  root.classList.toggle('motion-reduced', !moving());
   if (!moving()) {
     frames.forEach((frame) => frame.querySelector('img')?.getAnimations().forEach((animation) => animation.cancel()));
   }
   schedule();
 }
-function toggle() {
-  paused = !paused;
-  try { localStorage.setItem('nacho-motion-paused', String(paused)); } catch { /* No storage requirement. */ }
-  configure();
-}
-switchButton.addEventListener('click', toggle);
-document.addEventListener('site-motion-toggle', toggle);
 reduced.addEventListener('change', configure);
+document.addEventListener('visibilitychange', () => { lastFrame = 0; schedule(); });
 window.addEventListener('scroll', schedule, { passive: true });
 window.addEventListener('resize', schedule, { passive: true });
 scan(document);

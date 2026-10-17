@@ -2,9 +2,7 @@
 const story = document.querySelector('.build-story');
 if (story) {
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const toggle = story.querySelector('.motion-toggle');
   const steps = [...story.querySelectorAll('[data-build-step]')];
-  let paused = false;
   let frame = 0;
   let lastProgress = -1;
   const clamp = (value) => Math.min(1, Math.max(0, value));
@@ -33,7 +31,7 @@ if (story) {
     frame = 0;
     const rect = story.getBoundingClientRect();
     document.body.classList.toggle('in-build-story', rect.top < 140 && rect.bottom > innerHeight / 2);
-    if (paused || reducedMotion.matches) return;
+    if (reducedMotion.matches) return;
     const pin = story.querySelector('.build-story-pin');
     const top = parseFloat(getComputedStyle(pin).top) || 72;
     render(clamp((top - rect.top) / Math.max(1, rect.height - pin.offsetHeight)));
@@ -41,11 +39,8 @@ if (story) {
   const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
 
   function configure() {
-    const animated = !paused && !reducedMotion.matches;
+    const animated = !reducedMotion.matches;
     story.classList.toggle('is-animated', animated);
-    toggle.setAttribute('aria-pressed', String(paused));
-    toggle.textContent = paused ? 'Activar movimiento' : 'Pausar movimiento';
-    toggle.hidden = reducedMotion.matches;
     lastProgress = -1;
     if (animated) schedule();
     else {
@@ -54,7 +49,7 @@ if (story) {
   }
   steps.forEach((button) => button.addEventListener('click', () => {
     const progress = [0, .46, 1][Number(button.dataset.buildStep)];
-    if (paused || reducedMotion.matches) render(progress);
+    if (reducedMotion.matches) render(progress);
     else {
       const pin = story.querySelector('.build-story-pin');
       const top = parseFloat(getComputedStyle(pin).top) || 72;
@@ -62,23 +57,6 @@ if (story) {
       window.scrollTo({ top: target, behavior: 'smooth' });
     }
   }));
-  toggle.addEventListener('click', () => {
-    if (document.documentElement.classList.contains('motion-ready')) {
-      document.dispatchEvent(new Event('site-motion-toggle'));
-      return;
-    }
-    const previousTop = story.getBoundingClientRect().top;
-    paused = !paused;
-    configure();
-    // Keep the scene visible when collapsing its scroll distance.
-    if (previousTop < 72) story.scrollIntoView({ behavior: 'instant', block: 'start' });
-  });
-  document.addEventListener('site-motion-change', (event) => {
-    const previous = story.getBoundingClientRect();
-    paused = !event.detail.enabled;
-    configure();
-    if (previous.top < 72 && previous.bottom > 72) story.scrollIntoView({ behavior: 'instant', block: 'start' });
-  });
   window.addEventListener('scroll', schedule, { passive: true });
   window.addEventListener('resize', schedule, { passive: true });
   reducedMotion.addEventListener('change', configure);

@@ -6,9 +6,6 @@
 .build-story-top .section-label { margin: 0; color: var(--gold-light); }
 .build-story-tools { display: flex; gap: 18px; align-items: center; font-size: 11px; color: #d1d5cd; }
 .build-story-tools a { border-bottom: 1px solid #6b7169; }
-.motion-toggle { display: none; padding: 8px 10px; border: 1px solid #62685f; border-radius: 2px; background: transparent; color: #eee; font-size: 11px; }
-.build-story.is-ready .motion-toggle { display: block; }
-.build-story .motion-toggle[hidden] { display: none; }
 .build-story-body { position: relative; flex: 1; min-height: 0; display: grid; grid-template-columns: 36% 64%; align-items: center; padding: 0 var(--pad); }
 .build-story-copy { position: relative; z-index: 2; padding: 35px 0; }
 .build-story-copy h2 { font-size: clamp(48px, 5.6vw, 88px); margin: 0 0 25px; }
@@ -18,7 +15,7 @@
 .build-scene { position: relative; width: 118%; margin-left: -10%; aspect-ratio: 1.32; overflow: hidden; border-radius: 2px; isolation: isolate; }
 .is-animated .build-scene { height: min(54vw, calc(100svh - 320px)); aspect-ratio: auto; }
 .build-scene svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: scale(calc(1 + var(--enter) * 3.6)); transform-origin: 61% 43%; opacity: calc(1 - var(--inside)); }
-.build-interior { position: absolute; inset: 0; height: 100%; object-fit: cover; opacity: var(--inside); transform: scale(calc(1.15 - var(--inside) * .15)); }
+.build-interior { position: absolute; inset: 0; height: 100%; object-fit: cover; opacity: var(--inside); transform: translate3d(calc((1 - var(--inside)) * -18px), calc((1 - var(--inside)) * 10px), 0) scale(calc(1.18 - var(--inside) * .18)); }
 .build-scene-note { position: absolute; z-index: 2; right: 16px; bottom: 10px; left: 16px; margin: 0; color: #d9ddd3; font-size: 9px; text-align: right; text-shadow: 0 1px 5px #000; }
 .concrete-spread { transform: scaleY(var(--pour)); transform-origin: 0 720px; }
 .concrete-pattern { opacity: var(--finish); }
@@ -48,7 +45,6 @@
   .build-story-top .section-label { font-size: 10px; letter-spacing: .1em; }
   .build-story-tools { gap: 10px; }
   .build-story-tools a { font-size: 10px; }
-  .motion-toggle { padding: 6px; font-size: 10px; }
   .build-story-body { display: flex; flex-direction: column; align-items: stretch; justify-content: center; padding-top: 10px; }
   .build-story-copy { padding: 14px 0 0; }
   .build-story-copy h2 { font-size: clamp(37px, 9vw, 51px); margin-bottom: 10px; max-width: 370px; }
